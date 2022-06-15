@@ -50,6 +50,24 @@ public class Calculator {
     public int subtract() {
         return getA()-getB();
     }
+
+    public int divide(int a, int b) {
+        try {
+            return a/b;
+        } catch (ArithmeticException e) {
+            out.println("Cannot divide by zero.");
+        }
+        return 0;
+    }
+
+    public int divide() {
+        try {
+            return getA()/getB();
+        } catch (ArithmeticException e) {
+            out.println("Cannot divide by zero.");
+        }
+        return 0;
+    }
 }
 
 class ScientificCalculator extends Calculator {
@@ -101,5 +119,6 @@ class TestCalculator {
         out.println(sciCalc.subtract(30,20));
         sciCalc.areaCalc(2,3);
         sciCalc.volumeCalc(2,3,4);
+        out.println(sciCalc.divide(2,0));
     }
 }

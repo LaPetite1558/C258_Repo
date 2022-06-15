@@ -24,7 +24,7 @@ public class GradeCheck {
             int i = 0;
 
             do {
-                out.printf("Please enter mark percentage for WeekOne.Student %d: ", i);
+                out.printf("Please enter mark percentage for Student %d: ", i);
                 double marks = in.nextDouble();
 
                 if (marks >= 0 && marks <= 100) {
