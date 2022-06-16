@@ -36,6 +36,11 @@ public class App {
 
         iCalc.printInterest();
 
+        out.print("How many dollars do you have? ");
+        int dollars = in.nextInt();
+
+        LuckySevens.playGame(dollars);
+
         in.close();
 
 

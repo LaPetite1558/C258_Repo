@@ -61,6 +61,6 @@ public class Factorizer {
 
         if (isPrime()) {
             out.printf("%d is a prime number.\n", getN());
-        } else out.printf("%d is not a prime number.", getN());
+        } else out.printf("%d is not a prime number.\n", getN());
     }
 }
