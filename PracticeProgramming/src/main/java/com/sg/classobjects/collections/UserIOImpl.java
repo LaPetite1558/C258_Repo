@@ -1,4 +1,4 @@
-package com.sg.foundations.collections;
+package com.sg.classobjects.collections;
 
 import java.util.Scanner;
 
