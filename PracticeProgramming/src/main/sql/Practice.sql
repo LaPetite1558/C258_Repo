@@ -141,3 +141,173 @@ order by employee_id desc;
 select employees.employee_id, employees.job_id, employees.email, job_history.start_date, job_history.end_date
 from employees
 join job_history on employees.job_id=job_history.job_id and employees.employee_id=job_history.employee_id;
+
+select * from employees where employee_id = 102;
+
+select * from employees having employee_id = 102;
+
+select department_id, count(*)
+from employees
+group by department_id
+having count(*) > 5;
+
+select first_name, hire_date, date_format(hire_date, '%M') as month_date
+from employees having month_date like "June";
+
+
+-- 23 JUN 2022 Q1
+select count(*), date_format(hire_date, '%Y') as year_date
+from employees 
+group by year_date;
+
+-- select count(*), date_format(hire_date, '%M%Y') as month_year
+-- from employees 
+-- group by month_year
+-- order by count(*) desc
+-- limit 1;
+
+-- select month_year, max(mcount) as max_count
+-- from (
+-- 	select count(*) as mcount, 
+-- 		   date_format(hire_date, '%M%Y') as month_year
+-- 	from employees 
+--     group by month_year
+--     ) 
+-- as a;
+
+-- 23 JUN 2022 Q2
+select date_format(hire_date, '%M%Y') as month_year, count(*)
+from employees
+group by month_year
+having count(*) = 
+(select max(mcount)
+from 
+(select count(*) mcount, date_format(hire_date, '%M%Y') as month_year
+from employees
+group by month_year) as a);
+
+select date_format(hire_date, '%M') as hire_month, count(*)
+from employees
+group by hire_month
+having count(*) = 
+(select max(mcount)
+from 
+(select count(*) mcount, date_format(hire_date, '%M') as hire_month
+from employees
+group by hire_month) as a);
+
+
+-- 23 JUN 2022 Q3
+select date_format(hire_date, '%M') as hire_month, count(*)
+from employees
+where department_id = 60
+group by hire_month
+having count(*) = 
+(select max(mcount) 
+from 
+(select count(*) mcount, date_format(hire_date, '%M') as hire_month
+from employees
+where department_id = 60
+group by hire_month) as a);
+
+-- 23 JUN 2022 Q4
+select e.*, department_name
+from
+(select employee_id, first_name, last_name, department_id,
+		email, phone_number, hire_date, job_id, commission_pct,
+        manager_id, max(salary) as max_salary
+from employees as e
+group by department_id
+order by department_id, max_salary desc) as e
+inner join departments as d on e.department_id=d.department_id;
+
+select employee_id, first_name, last_name, department_id, max(salary) as max_salary
+from employees as e
+where department_id is not null
+group by department_id
+order by department_id, max_salary desc;
+
+-- 23 JUN 2022 Q5
+select * 
+from employees
+where salary = 
+(select max(salary) 
+from employees
+where salary < 
+(select max(salary) 
+from employees));
+
+-- 23 JUN 2022 Q6
+select *
+from
+(select department_id, max(salary)
+from employees
+where salary not in 
+(select max(salary)
+from employees
+group by department_id
+order by salary desc)
+group by department_id
+union
+select department_id, max(salary)
+from employees
+where salary in
+(select max(salary)
+from employees
+group by department_id
+order by salary desc)
+group by department_id) a
+where department_id is not null
+group by department_id
+order by department_id;
+
+
+
+
+-- select * 
+-- from 
+-- (select employee_id, first_name, last_name, department_id,
+-- 		email, phone_number, hire_date, job_id, commission_pct,
+--         manager_id, max(salary) 
+-- from employees
+-- where salary < 
+-- (select employee_id, first_name, last_name, department_id,
+-- 		email, phone_number, hire_date, job_id, commission_pct,
+--         manager_id, max(salary) 
+-- from employees group by department_id)) a
+-- group by department_id;
+
+
+
+
+
+
+-- select employee_id, first_name, d.department_id, department_name, salary
+-- from employees as e
+-- inner join departments as d on e.department_id=d.department_id
+-- group by d.department_id
+-- having salary =  
+-- (select employee_id, first_name, last_name, department_id, max(salary) as max_salary
+-- from employees as e
+-- group by department_id
+-- order by department_id, max_salary desc)
+-- order by salary desc;
+
+
+
+
+
+-- select hire_month, count(mcount)
+-- from 
+-- (select count(*) mcount, date_format(hire_date, '%M') as hire_month 
+-- from employees
+-- where department_id = 60
+-- group by hire_month) as a;
+
+-- select max(mcount) as max_count, hire_month
+-- from (
+-- 	select count(*) as mcount, 
+-- 		   date_format(hire_date, '%M') as hire_month
+-- 	from employees 
+--     group by hire_month
+--     ) as a;
