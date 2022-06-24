@@ -1,12 +1,20 @@
-package com.sg.assessment.intermediate;
+package com.sg.assessment.vendingmachine.dto;
 
 public class Item {
+    private String itemID;
     private String name;
     private float cost;
 
-    public Item(String name, float cost) {
-        this.name = name;
-        this.cost = cost;
+    public Item(String itemID) {
+        this.itemID = itemID;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
     }
 
     public String getName() {

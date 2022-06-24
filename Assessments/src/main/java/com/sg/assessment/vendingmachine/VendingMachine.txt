@@ -1,4 +1,6 @@
-package com.sg.assessment.intermediate;
+package com.sg.assessment.vendingmachine;
+
+import com.sg.assessment.vendingmachine.dto.Item;
 
 import java.io.*;
 import java.util.HashMap;
