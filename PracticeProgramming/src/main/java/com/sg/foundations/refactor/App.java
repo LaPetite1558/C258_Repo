@@ -1,7 +1,6 @@
 package com.sg.foundations.refactor;
 
 import java.util.Scanner;
-import java.util.Stack;
 
 import static java.lang.System.out;
 

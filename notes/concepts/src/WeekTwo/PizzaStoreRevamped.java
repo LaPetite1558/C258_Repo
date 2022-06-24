@@ -148,14 +148,18 @@ public class PizzaStoreRevamped {
 class TestPizzaStore {
     public static void main(String[] args) {
         int[] pizzaIDs = {101,102,111,120};
-        String[] pizzaNames = {"Mushroom","Pepperoni","Veggie","Hawaiian"};
+        String[] pizzaNames = {"Mushroom","Pepperoni","Veggies ","Hawaiian"};
         float[] pizzaPrices = {12.25f,13.95f,9.99f,10.99f};
         int[] quantities = {10,12,2,8};
 
         PizzaStoreRevamped pizzaHut = new PizzaStoreRevamped(pizzaIDs,pizzaNames,pizzaPrices,quantities);
 
+        pizzaHut.getPizzaStock().forEach((k,v) -> System.out.println(k.getType() + "\t" + v));
+
         pizzaHut.makeOrder("Bob");
         pizzaHut.checkOut("Bob");
+
+        pizzaHut.getPizzaStock().forEach((k,v) -> System.out.println(k.getType() + "\t" + v));
 //        pizzaHut.makeOrder("Bob");
 //        pizzaHut.printOrder("Bob");
 //        pizzaHut.makeOrder("Bob");
